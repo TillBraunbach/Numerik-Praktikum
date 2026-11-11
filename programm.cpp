@@ -54,7 +54,7 @@ void leseConfig(string dateiName){
             C = stod(wert);
         }
         else {
-            cerr << "Warnung: unbekannter Eintrag in Config: " << name << "\n";
+            cerr << "Warnung: unbekannter Eintrag in Config: " << name << endl;
         }
     }
 }
