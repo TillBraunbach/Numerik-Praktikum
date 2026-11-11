@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <filesystem>
 
 using namespace std;
 
@@ -65,8 +66,14 @@ void configAusgabe(){ //Funktion die die globelen Variabelen ausgibt die in der 
     cout << "B: " << B << endl;
     cout << "C: " << C << endl;
 }
+void leseZeitordner(string ordnerPfad){
+    for (filesystem::directory_entry eintrag : filesystem::directory_iterator(ordnerPfad)){ //Nimmt jeden eintrag aus dem ordner einer nach dem anderen und speichert ihn unter eintrag
+        cout << eintrag.path().filename().string() << endl; //.path() nimmt den Pfad des Eintrags, .filename() nimmt nur den Name am ende des Pfads, .string() wandelt den Namen in ein string um der von cout ausgegeben wird 
+    }
+}
 int main() {
     leseConfig(configDatei);
     configAusgabe();
+    leseZeitordner(Pfad);
     return 0; 
 }
