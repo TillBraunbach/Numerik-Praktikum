@@ -1,7 +1,8 @@
 // Relativer Pfad zum Case
-Pfad = "./Zylinder_Spray"
+// Pfad ohne "" da die im programm eh wieder hätten entfernt werden müssen
+Pfad = ./Zylinder_Spray
 
-// Entwicklerversion
+// Entwicklerversion entwerder True oder False
 Entwicklerversion = True
 
 // Prandtl-Zahl für Luft konst.
