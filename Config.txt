@@ -1,1 +1,13 @@
+// Relativer Pfad zum Case
+Pfad = "./Zylinder_Spray"
 
+// Entwicklerversion
+Entwicklerversion = True
+
+// Prandtl-Zahl für Luft konst.
+Pr = 0.71
+
+// Koeffizienten Wärmeleitfähigkeit, Gl.4
+A = -5e-5
+B = 0.0765
+C = 24.545
