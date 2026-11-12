@@ -1,7 +1,9 @@
 #include <iostream>
-#include <fstream>
+#include <fstream> // zum einlesen der config
 #include <string>
-#include <filesystem>
+#include <filesystem> // um den ordner zu durchsuchen etc
+#include <vector>
+#include <algorithm> // für sort() um den vektor der ordnernamen zu sortieren
 
 using namespace std;
 
@@ -30,7 +32,7 @@ void leseConfig(string dateiName){
             continue;
         }
 
-        int pos = zeile.find('='); // position des = finden
+        int pos = zeile.find('='); // position des = finden und in pos speichern
         string name = zeile.substr(0, pos - 1); // was vor dem = steht
         string wert = zeile.substr(pos + 2); // was nach dem = steht
         
@@ -42,7 +44,7 @@ void leseConfig(string dateiName){
             Entwicklerversion = (wert == "True");   // true, wenn in der Config "True" steht
         }
         else if (name == "Pr") {
-            Pr = stod(wert);                        // Text zu Zahl durch stod
+            Pr = stod(wert);                        // Text zu Zahl durch stod(sting to double)
         }
         else if (name == "A") {
             A = stod(wert);
@@ -54,7 +56,7 @@ void leseConfig(string dateiName){
             C = stod(wert);
         }
         else {
-            cerr << "Warnung: unbekannter Eintrag in Config: " << name << endl;
+            cerr << "Warnung: unbekannter Eintrag in Config: " << name << endl; //error wenn irgendwas in der Config steht was da nicht hingehört
         }
     }
 }
@@ -67,8 +69,19 @@ void configAusgabe(){ //Funktion die die globelen Variabelen ausgibt die in der 
     cout << "C: " << C << endl;
 }
 void leseZeitordner(string ordnerPfad){
-    for (filesystem::directory_entry eintrag : filesystem::directory_iterator(ordnerPfad)){ //Nimmt jeden eintrag aus dem ordner einer nach dem anderen und speichert ihn unter eintrag
-        cout << eintrag.path().filename().string() << endl; //.path() nimmt den Pfad des Eintrags, .filename() nimmt nur den Name am ende des Pfads, .string() wandelt den Namen in ein string um der von cout ausgegeben wird 
+    vector<string> ordnerliste; // vector mit dem namen ordnerliste und dem datentype string 
+    for (filesystem::directory_entry eintrag : filesystem::directory_iterator(ordnerPfad)){ //Nimmt jeden eintrag aus dem ordner einer nach dem anderen und nennt ihn eintrag
+        string name = eintrag.path().filename().string(); //.path() nimmt den Pfad des Eintrags, .filename() nimmt nur den Name am ende des Pfads, .string() wandelt den Namen in ein string um der
+        if(!isdigit(name[0])){ // checkt ob die erste stelle eine Zahl ist wenn nicht wird der eintraf übersprungen
+            continue;
+        }
+        ordnerliste.push_back(name); //hängt den eintrag am ende der ordnerliste an 
+    }
+    sort(ordnerliste.begin(), ordnerliste.end()); // sortiert die ordnerliste
+    if(Entwicklerversion){ // checkt on die Entwicklerversion aktiviert ist 
+        for (int i = 0; i < ordnerliste.size(); i++){ // geht alle einträge des vectors ordnerliste durch
+        cout << ordnerliste[i] << endl; // gibt jeden eintrag im terminal aus 
+        }
     }
 }
 int main() {
