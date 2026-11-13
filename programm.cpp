@@ -44,7 +44,7 @@ void leseConfig(string dateiName){
             Entwicklerversion = (wert == "True");   // true, wenn in der Config "True" steht, man kann nicht direkt = wert machen da wert ein string ist und kein bool
         }
         else if (name == "Pr") {
-            Pr = stod(wert);                        // Text zu Zahl durch stod (sting to double)
+            Pr = stod(wert);                        // Text zu Zahl durch stod (string to double)
         }
         else if (name == "A") {
             A = stod(wert);
@@ -71,14 +71,14 @@ void configAusgabe(){ //Funktion die die globelen Variabelen ausgibt die in der 
 void leseZeitordner(string ordnerPfad){
     vector<string> ordnerliste; // vector mit dem namen ordnerliste und dem datentype string 
     for (filesystem::directory_entry eintrag : filesystem::directory_iterator(ordnerPfad)){ //Nimmt jeden eintrag aus dem ordner einer nach dem anderen und nennt ihn eintrag
-        string name = eintrag.path().filename().string(); //.path() nimmt den Pfad des Eintrags, .filename() nimmt nur den Name am ende des Pfads, .string() wandelt den Namen in ein string um der
+        string name = eintrag.path().filename().string(); //.path() nimmt den Pfad des Eintrags, .filename() nimmt nur den Name am Ende des Pfads, .string() wandelt den Namen in ein string um 
         if(!isdigit(name[0])){ // checkt ob die erste stelle eine Zahl ist wenn nicht wird der eintraf übersprungen
             continue;
         }
         ordnerliste.push_back(name); //hängt den eintrag am ende der ordnerliste an 
     }
-    sort(ordnerliste.begin(), ordnerliste.end()); // sortiert die ordnerliste (geht nur weil die ordnernamen alle mit einer Zahl anfangen und kleiner als 10 sind (weil stings und keine doubles sortiert werden), sonst würde z.B. 10 vor 2 stehen, ansonsten hätte man eine eigene sortierfunktion schreiben müssen)
-    if(Entwicklerversion){ // checkt on die Entwicklerversion aktiviert ist 
+    sort(ordnerliste.begin(), ordnerliste.end()); // sortiert die ordnerliste (geht nur weil die ordnernamen alle mit einer Zahl anfangen und kleiner als 10 sind (weil strings und keine doubles sortiert werden), sonst würde z.B. 10 vor 2 stehen, ansonsten hätte man eine eigene sortierfunktion schreiben müssen)
+    if(Entwicklerversion){ // checkt ob die Entwicklerversion true ist 
         for (int i = 0; i < ordnerliste.size(); i++){ // geht alle einträge des vectors ordnerliste durch
         cout << ordnerliste[i] << endl; // gibt jeden eintrag im terminal aus 
         }
