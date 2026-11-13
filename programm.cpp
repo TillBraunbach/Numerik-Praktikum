@@ -41,10 +41,10 @@ void leseConfig(string dateiName){
             Pfad = wert;
         }
         else if (name == "Entwicklerversion") {
-            Entwicklerversion = (wert == "True");   // true, wenn in der Config "True" steht
+            Entwicklerversion = (wert == "True");   // true, wenn in der Config "True" steht, man kann nicht direkt = wert machen da wert ein string ist und kein bool
         }
         else if (name == "Pr") {
-            Pr = stod(wert);                        // Text zu Zahl durch stod(sting to double)
+            Pr = stod(wert);                        // Text zu Zahl durch stod (sting to double)
         }
         else if (name == "A") {
             A = stod(wert);
@@ -77,7 +77,7 @@ void leseZeitordner(string ordnerPfad){
         }
         ordnerliste.push_back(name); //hängt den eintrag am ende der ordnerliste an 
     }
-    sort(ordnerliste.begin(), ordnerliste.end()); // sortiert die ordnerliste
+    sort(ordnerliste.begin(), ordnerliste.end()); // sortiert die ordnerliste (geht nur weil die ordnernamen alle mit einer Zahl anfangen und kleiner als 10 sind (weil stings und keine doubles sortiert werden), sonst würde z.B. 10 vor 2 stehen, ansonsten hätte man eine eigene sortierfunktion schreiben müssen)
     if(Entwicklerversion){ // checkt on die Entwicklerversion aktiviert ist 
         for (int i = 0; i < ordnerliste.size(); i++){ // geht alle einträge des vectors ordnerliste durch
         cout << ordnerliste[i] << endl; // gibt jeden eintrag im terminal aus 
