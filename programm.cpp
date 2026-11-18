@@ -3,7 +3,7 @@
 #include <string>
 #include <filesystem> // um den ordner zu durchsuchen etc
 #include <vector>
-#include <algorithm> // für sort() um den vektor der ordnernamen zu sortieren
+//#include <algorithm> // für sort() um den vektor der ordnernamen zu sortieren
 
 using namespace std;
 
@@ -68,6 +68,35 @@ void configAusgabe(){ //Funktion die die globelen Variabelen ausgibt die in der 
     cout << "B: " << B << endl;
     cout << "C: " << C << endl;
 }
+
+//Quicksort aus dem Tutorium im 2.Semester. Aufgabe 20
+void quickSort(vector<string>& arr, int low, int high){ // & nach dem vector damit auch der "echte" Vector sortiert wird und keine kopie
+        int i, j;
+        double pivot;
+        if (low < high) {
+            pivot = stod(arr[low]);
+            i = low;
+            j = high;
+            while( i <= j){
+                while(stod(arr[i]) < pivot){
+                    i++;
+                }
+                while(stod(arr[j]) > pivot){
+                    j--;
+                }
+                if (i <= j){
+                    string speicher = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = speicher;
+                    i++;
+                    j--;
+                }
+            }
+            quickSort(arr, low, j);
+            quickSort(arr, i, high);
+        }
+}
+
 void leseZeitordner(string ordnerPfad){
     vector<string> ordnerliste; // vector mit dem namen ordnerliste und dem datentype string 
     for (filesystem::directory_entry eintrag : filesystem::directory_iterator(ordnerPfad)){ //Nimmt jeden eintrag aus dem ordner einer nach dem anderen und nennt ihn eintrag
@@ -77,7 +106,7 @@ void leseZeitordner(string ordnerPfad){
         }
         ordnerliste.push_back(name); //hängt den eintrag am ende der ordnerliste an 
     }
-    sort(ordnerliste.begin(), ordnerliste.end()); // sortiert die ordnerliste (geht nur weil die ordnernamen alle mit einer Zahl anfangen und kleiner als 10 sind (weil strings und keine doubles sortiert werden), sonst würde z.B. 10 vor 2 stehen, ansonsten hätte man eine eigene sortierfunktion schreiben müssen)
+    quickSort(ordnerliste, 0, ordnerliste.size() - 1); //Quicksort aus dem letzten Semester wandelt die Ordnernamen in doubles und sortiert diese nach größe
     if(Entwicklerversion){ // checkt ob die Entwicklerversion true ist 
         for (int i = 0; i < ordnerliste.size(); i++){ // geht alle einträge des vectors ordnerliste durch
         cout << ordnerliste[i] << endl; // gibt jeden eintrag im terminal aus 
