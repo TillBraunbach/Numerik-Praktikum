@@ -71,9 +71,8 @@ void configAusgabe(){ //Funktion die die globelen Variabelen ausgibt die in der 
 //Quicksort aus dem Tutorium im 2.Semester. Aufgabe 20
 void quickSort(vector<string>& arr, int low, int high){ // & nach dem vector damit auch der "echte" Vector sortiert wird und keine kopie
         int i, j;
-        double pivot;
         if (low < high) {
-            pivot = stod(arr[low]);
+            double pivot = stod(arr[low]);
             i = low;
             j = high;
             while( i <= j){
