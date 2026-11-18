@@ -3,7 +3,6 @@
 #include <string>
 #include <filesystem> // um den ordner zu durchsuchen etc
 #include <vector>
-//#include <algorithm> // für sort() um den vektor der ordnernamen zu sortieren
 
 using namespace std;
 
